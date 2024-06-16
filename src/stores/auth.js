@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('Auth', {
   // Initial state
   state: () => ({
-    isAuthenticated: false,
+    isAuthenticated: true,
     url: '',
     key: '',
     modelList: [],

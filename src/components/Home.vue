@@ -8,13 +8,13 @@
     <Steps :model="items" :readonly="false" v-model:activeStep="activeIndex" />
   </Sidebar>
   <div class="small-margin-top">&nbsp;</div>
-  <SelectModel v-if="activeIndex === 0" />
+  <ListModel v-if="activeIndex === 0" />
   <Chat v-if="activeIndex === 1" />
 </template>
 
 <script setup>
 
-import SelectModel from './SelectModel.vue';
+import ListModel from './ListModel.vue';
 import Chat from './Chat.vue';
 import { ref } from "vue";
 
@@ -22,7 +22,7 @@ const visibleTop = ref(false);
 const activeIndex = ref(1);
 const items = ref([
   {
-    label: 'Model List',
+    label: 'List Models',
     command: () => { activeIndex.value = 0; }
   },
   {

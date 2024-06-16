@@ -33,7 +33,7 @@ import { ref } from "vue";
 import { useAuthStore } from '../stores/auth.js';
 const authStore = useAuthStore();
 const modelList = ref(authStore.getModelList);
-
+const processing_response = ref(false);
 
 const bytesToGB = (bytes) => {
   const gb = bytes / (1024 ** 3);
