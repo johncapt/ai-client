@@ -10,6 +10,8 @@ import App from './App.vue';
 import router from './router';
 
 // import Primevue components
+import Splitter from 'primevue/splitter';
+import SplitterPanel from 'primevue/splitterpanel';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Stepper from 'primevue/stepper';
@@ -28,7 +30,6 @@ import Textarea from 'primevue/textarea';
 import Sidebar from 'primevue/sidebar';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
-import FloatLabel from 'primevue/floatlabel';
 import ProgressSpinner from 'primevue/progressspinner';
 import InputText from 'primevue/inputtext';
 import SelectButton from 'primevue/selectbutton';
@@ -40,6 +41,8 @@ app.use(createPinia());
 app.use(router);
 
 // add primevue components
+app.component('Splitter', Splitter);
+app.component('SplitterPanel', SplitterPanel);
 app.component('SelectButton', SelectButton);
 app.component('Toast', Toast);
 app.component('Stepper', Stepper);
@@ -54,7 +57,6 @@ app.component('InputGroupAddon', InputGroupAddon);
 app.component('Dropdown', Dropdown);
 app.component('Textarea', Textarea);
 app.component('Sidebar', Sidebar);
-app.component('FloatLabel', FloatLabel);
 app.component('OverlayPanel', OverlayPanel);
 app.component('InputText', InputText);
 app.component('ProgressSpinner', ProgressSpinner);

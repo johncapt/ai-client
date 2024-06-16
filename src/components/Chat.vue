@@ -1,66 +1,68 @@
 <template>
-  <div class="full-width" style="margin-top: -2rem;margin-bottom: 2rem;">
-    <label for="model_list"style="font-size: 0.75rem;margin-left: 1rem;color:rgb(102,105,139);">AI Model</label>  
+  <div class="full-width" style="margin-top: -1.5rem;margin-bottom: .5rem;">
+    <label for="model_list" style="margin-left: 0.3rem;color:rgb(102,105,139);">Available
+      Models</label>
     <SelectButton id="model_list" v-model="llm_name" :options="llm_list" aria-labelledby="basic" />
-      
+  </div>
 
-  </div>
-  <div>
-    <FloatLabel>
-      <InputText class="full-width" id="system_prompt" v-model="system_prompt"
-        placeholder="You are a helpful assistant..." />
-      <label for="system_prompt">AI Persona Description</label>
-    </FloatLabel>
-  </div>
-  
-  <div class="small-margin-top"></div>
-  <FloatLabel>
-    <Textarea 
-      class="full-width" 
-      id="context" 
-      v-model="context" 
-      rows="10" 
-      cols="30"
+  <Splitter>
+    <SplitterPanel style="padding: 0.3rem;height:89cqh;">
+      <div style="margin-top:0.2rem;">
+        <label for="system_prompt">AI Persona Description</label>
+          <InputText class="full-width" id="system_prompt" v-model="system_prompt"
+            placeholder="You are a helpful assistant..." />
+      </div>
+
+      <div style="margin-top:0.5rem;">
+        <label for="context">Context</label>
+    <Textarea class="full-width" id="context" v-model="context" rows="10" cols="30"
       placeholder="Paste your context here..." />
-    <label for="context">Context</label>
-  </FloatLabel>
-  <div class="small-margin-top"></div>
-  <div class="container">
+    
+      </div>
+      <div class="container">
     <div class="textbox-container">
-      <FloatLabel>
-        <InputText 
-          class="full-width" 
-          id="instructions" 
-          v-model="instructions"
-          placeholder="Use provided context to..."  />
+      <div>
         <label for="instructions">Instructions</label>
-      </FloatLabel>
+        <InputText class="full-width" id="instructions" v-model="instructions"
+          placeholder="Use provided context to..." />
+        
+      </div>
     </div>
     <div class="button-container">
-      <Button :disabled="processing_response || stream_in_progress" label="Ask AI" icon="pi pi-check" @click="stream_chat()" />
+      <Button :disabled="processing_response || stream_in_progress" label="Ask AI" icon="pi pi-check"
+        @click="stream_chat()" />
     </div>
   </div>
+    </SplitterPanel>
+    
+    <!-- AI response -->
+    <SplitterPanel style="padding: 0.3rem;">
+      <div class="full-width-and-height centered-items" v-if="processing_response">
+        <ProgressSpinner />
+      </div>
+      <div v-else>
+        <label for="context">AI Response</label>
+        <Textarea class="full-width-and-height" id="response" v-model="ai_response" rows="10" cols="30"
+          placeholder="" readonly disabled @contextmenu="onAIResponseRightClick"
+          aria-haspopup="true" />
+        <ContextMenu ref="menu" :model="context_menu_items" />
+      </div>
+    </SplitterPanel>
+  </Splitter>
 
+
+
+
+
+
+
+  <!-- <div class="small-margin-top"></div>
+  
   <div class="small-margin-top"></div>
-  <div class="full-width-and-height centered-items" v-if="processing_response">
-    <ProgressSpinner />
-  </div>
-  <FloatLabel v-else>
-    <Textarea 
-      class="full-width-and-height" 
-      id="response" 
-      v-model="ai_response" 
-      rows="10" 
-      cols="30"
-      placeholder="AI response goes here" 
-      readonly 
-      disabled
-      @contextmenu="onAIResponseRightClick" 
-      aria-haspopup="true"
-      />
-      <ContextMenu ref="menu" :model="context_menu_items" />
-    <label for="context">AI Response</label>
-  </FloatLabel>
+  
+
+  <div class="small-margin-top"></div> -->
+  
 </template>
 
 <script setup>
@@ -79,12 +81,12 @@ const stream_in_progress = ref(false);
 
 const menu = ref();
 const context_menu_items = ref([
-    { label: 'Select all', icon: 'pi pi-file-edit', command: () => { console.log('select'); } },
-    { label: 'Copy', icon: 'pi pi-copy', command: () => { console.log('copy'); } }
+  { label: 'Select all', icon: 'pi pi-file-edit', command: () => { console.log('select'); } },
+  { label: 'Copy', icon: 'pi pi-copy', command: () => { console.log('copy'); } }
 ]);
 
 const onAIResponseRightClick = (event) => {
-    menu.value.show(event);
+  menu.value.show(event);
 };
 
 
@@ -155,7 +157,7 @@ const stream_chat = async () => {
       ai_response.value = concatenatedChunks
     }
   } catch (error) {
-    processing_response.value = false;    
+    processing_response.value = false;
     ai_response.value = `Error: Server error: ${error.message}`;
   }
 }
@@ -173,10 +175,11 @@ const stream_chat = async () => {
 
 .full-width-and-height {
   min-width: 100%;
-  min-height: 43vh;
+  min-height: 85vh;
 }
 
 .container {
+  margin-top: 0.5rem;
   display: flex;
   align-items: center;
   width: 100%;
